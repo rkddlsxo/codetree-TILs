@@ -4,17 +4,21 @@ using namespace std;
 
 int a, b;
 
-int isPrime(int a, int b){
+bool isPrime(int n){
+    for(int i=2; i<n; i++){
+        if(n%i == 0){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int sumP(int a, int b){
     int sum = 0;
     for(int i=a; i<=b; i++){
-        
-        for(int j=2; j<i; j++){
-            if(i%j == 0){
-                break;
-            }  
-            if(j == i-1){
-                sum += i;
-            }
+        if(isPrime(i)){
+            sum += i;
         }
     }
 
@@ -23,7 +27,7 @@ int isPrime(int a, int b){
 
 int main() {
     cin >> a >> b;
-    cout << isPrime(a,b);
+    cout << sumP(a,b);
     // Please write your code here.
 
     return 0;

@@ -10,22 +10,29 @@ bool isB(int a[],int b[],int a_size, int b_size){
         return false;
     }
     int a_index, b_index;
+    
     for(int i=0; i<a_size; i++){
         if(a[i] == b[0]){
+            bool aa = true;
             a_index = i;
             if(i+b_size > a_size){
-                return false;
+                aa = false;
             }
 
             for(int k=i; k<i+b_size; k++){
                 if(a[k] != b[k-a_index]){
-                    return false;
+                    aa = false;
+                    break;
                 }
+            }
+
+            if(aa){
+                return true;
             }
         }
     }
 
-    return true;
+    return false;
 
 
 }

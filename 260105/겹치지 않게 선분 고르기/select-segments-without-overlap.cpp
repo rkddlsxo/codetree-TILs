@@ -14,7 +14,7 @@ void select(int num){
         
         for(int i=0; i<n; i++){
             if(answer[i] == 1){
-                for(int j = x1[i]; j<x2[i]; j++){
+                for(int j = x1[i]; j<=x2[i]; j++){
                 narray[j]++;
                 if(narray[j] >= 2){
                     return; 

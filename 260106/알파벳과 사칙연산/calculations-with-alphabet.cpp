@@ -21,29 +21,22 @@ int dustks(int num1, int num2, char oper){
     }
 }
 
-void select(int num){
+void select(int num, int current_value){
     if(num == (string_len+1)/2){
-        vector<char> oper1; 
-        int aa;
-        for(int i=0; i<oper.size(); i++){
-            oper1.push_back(oper[i]);
-        }
-        int temp_num = number[0];
-        for(int i=0; i<string_len/2; i++){
-            aa = dustks(temp_num, number[i+1],oper1[oper1.size()-1-i]);
-            temp_num = aa;
-        }
-
-        if(temp_num > max_sum){
-            max_sum = temp_num;
+        if(current_value > max_sum){
+            max_sum = current_value;
         }
         return;
     }
 
     for(int i=1; i<=4;i++){
-        number.push_back(i);
-        select(num+1);
-        number.pop_back();
+        if(num == 0){
+            select(num+1, i);
+        }
+        else{
+            int next_value = dustks(current_value, i, oper[num-1]);
+            select(num+1, next_value);
+        }
     }
 
 }
@@ -54,11 +47,11 @@ int main() {
     // Please write your code here.
     string_len = expression.length();
     
-    for(int i=string_len-2; i>0; i = i -2){
+    for(int i=1; i<expression.length(); i = i+2){
         oper.push_back(expression[i]);
     }
 
-    select(0);
+    select(0,0);
 
     cout << max_sum;
     

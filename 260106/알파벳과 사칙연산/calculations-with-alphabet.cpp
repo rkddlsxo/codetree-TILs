@@ -6,7 +6,6 @@ using namespace std;
 int string_len;
 vector<char> oper;
 string expression;
-vector<int> number;
 int max_sum = -999999;
 
 int dustks(int num1, int num2, char oper){

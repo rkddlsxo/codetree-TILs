@@ -1,59 +1,47 @@
 #include <iostream>
 #include <string>
-#include <vector>
-
+#include <vector> 
 using namespace std;
-int string_len;
-vector<char> oper;
+
+int expression_length;
 string expression;
-int max_sum = -999999;
+int number_list[6] = {};
+vector<char> oper_list;
 
-int dustks(int num1, int num2, char oper){
-    if(oper == '+'){
-        return num1 + num2; 
+int dustks(int a, int b, char c){
+    if(c == '+'){
+        return a+b;
     }
-    if(oper == '-'){
-        return num1 - num2; 
+    if(c == '-'){
+        return a-b;
     }
-    if(oper == '*'){
-        return num1 * num2;
+    if(c == '*'){
+        return a*b;
     }
 }
 
-void select(int num, int current_value){
-    if(num == (string_len+1)/2){
-        if(current_value > max_sum){
-            max_sum = current_value;
-        }
-        return;
-    }
+void calculate(int list[], char oper[], int expression_length){
+    int current_val = list[0];
+    for(int i=0; i<expression_length; i++){
+        if(expression[i] == 'a'){
 
-    for(int i=1; i<=4;i++){
-        if(num == 0){
-            select(num+1, i);
         }
-        else{
-            int next_value = dustks(current_value, i, oper[num-1]);
-            select(num+1, next_value);
+        if(expression[i] == 'a'){
+            
         }
     }
-
 }
+
+
 
 int main() {
     cin >> expression;
-
-    // Please write your code here.
-    string_len = expression.length();
+    expression_length = expression.length();
     
-    for(int i=1; i<expression.length(); i = i+2){
-        oper.push_back(expression[i]);
+    for(int i=1; i<expression_length; i=i+2){
+        oper_list.push_back(expression[i]);
     }
-
-    select(0,0);
-
-    cout << max_sum;
-    
+    // Please write your code here.
 
     return 0;
 }

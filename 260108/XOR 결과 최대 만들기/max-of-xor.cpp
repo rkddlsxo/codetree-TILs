@@ -11,9 +11,9 @@ int max_xor = 0;
 void select(int num, int cnt){
     if(num == n+1){
         if(cnt == m){
-            int a = answer[0];
+            int a = A[answer[0]];
             for(int i=1; i<answer.size(); i++){
-                a = a^answer[i];
+                a = a^A[answer[i]];
             }
             if(max_xor < a){
                 max_xor = a;

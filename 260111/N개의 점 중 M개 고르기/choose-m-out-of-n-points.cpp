@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int min_distance = 9999999;
+int min_distance = 2147483647;
 int n, m;
 int x[20], y[20];
 vector <int> point;
@@ -12,14 +12,12 @@ vector <int> point;
 void select(int num, int cnt){
     if(num == n){
         if(cnt == m){
-            int local_min = 999999;
+            int local_min = 0;
             for(int i=0; i<m; i++){
-                for(int j=i; j<m; j++){
-                    if(i == j){
-                        continue;
-                    }
+                for(int j=i+1; j<m; j++){
+                    
                     int distance = pow(x[point[i]] - x[point[j]],2)+pow(y[point[i]] - y[point[j]],2);
-                    if(distance < local_min){
+                    if(distance > local_min){
                         local_min = distance;
                     }
                 }

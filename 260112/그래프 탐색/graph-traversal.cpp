@@ -4,7 +4,7 @@ using namespace std;
 
 int n, m;
 int from[10000], to[10000];
-int* visit = new int[n+1];
+int visit[10000];
 int cnt = 0;
 
 void DFS(int vertex){

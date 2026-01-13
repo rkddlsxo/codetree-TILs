@@ -64,9 +64,9 @@ int main() {
         int count = 0;
         for (int i=0; i<N; i++){
             for(int j=0; j<M; j++){
-                int num = DFS(i,j,K);
-                if(num != 0){
-                    count++;
+                if(!visited[i][j] && grid[i][j] > K){
+                    DFS(i, j, K);
+                    count++; 
                 }
             }
         }

@@ -1,84 +1,74 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
+
 using namespace std;
 
 int N, M;
 int grid[50][50];
-int visited[50][50];
-void setGrid(){
-    for(int i=0; i<N; i++){
-        for(int j=0; j<M; j++){
+bool visited[50][50]; // bool 타입이 더 명확합니다.
+
+void setGrid() {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
             visited[i][j] = false;
         }
     }
 }
 
-bool canGo(int x,int y,int K){
-    if(x<0 || y<0 || x>=N || y>=M){
-        return false; 
-    }
+// 뭉치를 방문 처리만 하는 간단한 DFS
+void DFS(int x, int y, int K) {
+    visited[x][y] = true;
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
 
-    if(visited[x][y] == true){
-        return false;
-    }
+    for (int i = 0; i < 4; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
 
-    if(grid[x][y] <= K){
-        return false;
-    }
-
-    return true;
-}
-
-int DFS(int x_index, int y_index, int K){
-    if(visited[x_index][y_index] == true || grid[x_index][y_index] <= K){
-        return 0;
-    }
-
-    visited[x_index][y_index] = true;
-    int count = 0;
-    int dx[4] = {1,0,-1,0};
-    int dy[4] = {0,1,0,-1};
-    for(int i=0; i<4; i++){
-        int new_x = x_index + dx[i];
-        int new_y = y_index + dy[i];
-        if(canGo(new_x, new_y,K)){
-            count += DFS(new_x,new_y,K);
+        // 범위 안이고, 방문 안 했고, K보다 높으면 이동
+        if (nx >= 0 && nx < N && ny >= 0 && ny < M) {
+            if (!visited[nx][ny] && grid[nx][ny] > K) {
+                DFS(nx, ny, K);
+            }
         }
     }
-    return 1 + count;
 }
 
 int main() {
+    ios::sync_with_stdio(false); cin.tie(NULL); // 속도 최적화
     cin >> N >> M;
 
+    int max_h = 0;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             cin >> grid[i][j];
+            if (grid[i][j] > max_h) max_h = grid[i][j];
         }
     }
+
     int max_count = 0;
     int max_k = 1;
 
-    for(int K=1; K<=100; K++){
+    // K가 1부터 지역 내 최대 높이까지만 탐색
+    for (int K = 1; K <= max_h; K++) {
         setGrid();
-        int count = 0;
-        for (int i=0; i<N; i++){
-            for(int j=0; j<M; j++){
-                if(!visited[i][j] && grid[i][j] > K){
+        int current_islands = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                // 핵심: 여기서 미리 거르고 들어가야 함!
+                if (!visited[i][j] && grid[i][j] > K) {
                     DFS(i, j, K);
-                    count++; 
+                    current_islands++; // 새로운 뭉치 발견
                 }
             }
         }
-        if(count > max_count){
-            max_count = count;
+
+        if (current_islands > max_count) {
+            max_count = current_islands;
             max_k = K;
         }
     }
 
     cout << max_count << " " << max_k;
-
-    // Please write your code here.
-
     return 0;
 }

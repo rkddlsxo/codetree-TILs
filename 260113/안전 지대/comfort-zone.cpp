@@ -57,7 +57,7 @@ int main() {
         }
     }
     int max_count = 0;
-    int max_k = 0;
+    int max_k = 1;
 
     for(int K=1; K<=100; K++){
         setGrid();

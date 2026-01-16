@@ -10,11 +10,11 @@ int main() {
     dp[2] = 1;
     dp[3] = 1;
     for(int i=4; i<=n; i++){
-        dp[i] = dp[i-3] + dp[i-2];
+        dp[i] = (dp[i-3] + dp[i-2])%10007;
         
     }
 
-    cout << dp[n]%10007;
+    cout << dp[n];
     // Please write your code here.
 
     return 0;

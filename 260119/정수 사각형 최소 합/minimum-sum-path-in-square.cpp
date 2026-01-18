@@ -19,7 +19,7 @@ int main() {
     for(int i=n-2; i>=0; i--){
         dp[0][i] = grid[0][i] + dp[0][i+1];
     }
-    for(int i=0; i<n; i++){
+    for(int i=1; i<n; i++){
         dp[i][n-1] = grid[i][n-1] + dp[i-1][n-1];
     }
 

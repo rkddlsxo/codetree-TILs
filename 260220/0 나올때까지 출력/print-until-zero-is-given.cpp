@@ -9,7 +9,7 @@ int main() {
         if(k==0){
             break;
         }
-        cout << k;
+        cout << k << endl;
 
     }
     return 0;
